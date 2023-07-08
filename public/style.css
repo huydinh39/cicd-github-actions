@@ -3,6 +3,11 @@
   font-size: 15pt;
 }
 
+title {
+  color: #114ae4;
+  font-size: 30pt;
+}
+
 body {
   background: #ffffff;
   color: #FFF;
