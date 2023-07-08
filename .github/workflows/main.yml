@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - toan
+      - main
 
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
