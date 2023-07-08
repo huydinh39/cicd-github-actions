@@ -14,29 +14,25 @@ env:
   SSH_HOST: 170.187.202.7
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest .
-
-  push:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Login to Docker Hub
+      - name: Login to Docker Hub 
         run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
 
-      - name: Push Docker image
-        run: docker push $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+
+    steps:
+      - name: Build Docker image
+        run: |
+          docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest .  
+          docker push $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
 
 #   deploy:
-#     needs: push
+#     needs: build-and-push
 #     runs-on: ubuntu-latest
 
 #     steps:
