@@ -11,7 +11,7 @@ env:
   DOCKER_HUB_REPOSITORIES: cicd-github-actions
   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
   SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-  SSH_HOST: 170.187.202.7
+  SSH_HOST: ${{ secrets.SSH_HOST }}
 
 jobs:
   build-and-push:
