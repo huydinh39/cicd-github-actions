@@ -24,9 +24,7 @@ jobs:
       - name: Login to Docker Hub 
         run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
 
-
-    steps:
-      - name: Build Docker image
+      - name: Build and Push Docker image
         run: |
           docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest .  
           docker push $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
