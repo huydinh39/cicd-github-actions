@@ -1,0 +1,50 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - toan
+
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  DOCKER_HUB_REPOSITORIES: cicd-github-actions
+  SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+  SSH_HOST: 170.187.202.7
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+
+  push:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to Docker Hub
+        run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+
+      - name: Push Docker image
+        run: docker push $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+
+#   deploy:
+#     needs: push
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Install sshpass
+#         run: sudo apt-get install -y sshpass
+
+#       - name: Deploy to server
+#         run: |
+#           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker pull $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+#           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker rm -f test"
+#           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker run -d -p 3000:3000 --name test $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest"
