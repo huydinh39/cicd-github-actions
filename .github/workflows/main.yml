@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+        run: docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest .
 
   push:
     needs: build
