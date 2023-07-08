@@ -39,6 +39,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker pull $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker pull $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest"
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker rm -f test"
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker run -d -p 80:80 --name test $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORIES:latest"
