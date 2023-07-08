@@ -11,7 +11,7 @@
     <h2>Do This!</h2>
     <form action="/addtask" method="POST">
       <input class="newtask" test="text" name="newtask" placeholder="Add a task!">
-      <button class="addbutton">Add</button><br />
+      <button class="addbutton" style="cursor:pointer;">Add</button><br />
     <% for( var i = 0; i < task.length; i++){ %>
       <li><input class="check" type="checkbox" name="check" value="<%= task[i] %>" /> <%= task[i] %></li>
     <% } %>
