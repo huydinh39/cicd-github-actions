@@ -4,8 +4,9 @@
 }
 
 title {
-  color: #114ae4;
+  color: #114ae4 !important ;
   font-size: 30pt;
+  
 }
 
 body {
